@@ -17,7 +17,7 @@ def recog():
 
 @app.route('/retrain/')
 def retrain():
-    return Response(FR_Services.get_image(0), mimetype='multipart/x-mixed-replace; boundary=frame')
+    return Response(FR_Services.get_image("http://127.0.0.1:3000/"), mimetype='multipart/x-mixed-replace; boundary=frame')
     # return render_template('retrain.html')
 
 def gen(camera):
