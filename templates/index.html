@@ -2,9 +2,14 @@
 <head>
     <meta charset="utf-8">
     <link rel="stylesheet" href="static/css/main.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
     <style>
         #search {
-        width: 10em;  height: 3em;
+        width: 11em;  height: 3em;
+        }
+        #search2 {
+        width: 13em;  height: 3em;
         }
         input{font-size: 18px;}
         #innerbox{
@@ -19,18 +24,38 @@
     </style>
 </head>
 <body>
-<div style="margin-left:200px; margin-top:80px"><h1>Face Recognition Module</h1></div>
-<div style="margin-left:450px; margin-top:20px"><h3>Upload Image for Recognition</h3></div>
-<div style="margin-left:450px; margin-top:20px">
-<!--    <input type="file" id="myFile" name="filename">-->
+<div class="container">
+    <div class="col-lg-6 col-md-6  col-sm-12" style="background-color: silver">
+    <div style="margin-left:60px; margin-top:80px; color: green"><h1>Face Recognition Module</h1></div>
+    <div style="margin-left:20px; margin-top:20px"><h3>Upload Image for Recognition</h3></div>
+    <div style="margin-left:20px; margin-top:20px">
+    <!--    <input type="file" id="myFile" name="filename">-->
      <input type="file" onchange="document.getElementById('abc').src = window.URL.createObjectURL(this.files[0])">
-<!--    <input type="submit" value="Submit" id="search">-->
+    <!--    <input type="submit" value="Submit" id="search">-->
     </form>
-</div>
-<img src="" id="abc" style="margin-left: 450px; margin-top: 20px;height:420px; width:420px"></img>
-<br>
-<input type="submit" value="Run Model on Image" style="margin-left: 570px; margin-top: 20px" id="search">
-<div style="margin-left:550px; margin-top:20px; color: green"><h3>Face Recognition Result</h3></div>
-<div style="margin-left:450px; margin-top:20px"><h4>Image Recognized as: </h4></div>
+    </div>
+    <img src="" id="abc" style="margin-left: 60px; margin-top: 20px;height:420px; width:420px"></img>
+    <br>
+    <input type="submit" value="Run Model on Image" style="margin-left:180px; margin-top: 30px" id="search">
+    <div style="margin-left:120px; margin-top:30px; color: green"><h3>Face Recognition Result</h3></div>
+    <div style="margin-left:20px; margin-top:20px"><h4>Image Recognized as: </h4></div>
+    </div>
+    <div class="col-lg-6 col-md-6  col-sm-12" style="background-color: silver">
+      <div style="margin-left:60px; margin-top:80px; color: blue"><h1>Model Retraining Module</h1></div>
+      <div style="margin-left:20px; margin-top:20px"><h3>Upload Image for Model Retraining</h3></div>
+    <div style="margin-left:20px; margin-top:20px">
+    <!--    <input type="file" id="myFile" name="filename">-->
+     <input type="file" onchange="document.getElementById('xyz').src = window.URL.createObjectURL(this.files[0])">
+    <!--    <input type="submit" value="Submit" id="search">-->
+    </form>
+    </div>
+    <img src="" id="xyz" style="margin-left: 60px; margin-top: 20px;height:420px; width:420px"></img>
+    <br>
+    <input type="submit" value="Start Model Retraining" style="margin-left:180px; margin-top: 30px" id="search2">
+    <div style="margin-left:120px; margin-top:30px; color: green"><h3>Status: </h3></div>
+    <div style="margin-left:20px; margin-top:20px"><h4>Please run Face Recognition Module </h4></div>
+    </div>
+<div>
+
 </body>
 </html>
