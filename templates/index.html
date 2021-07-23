@@ -1,28 +1,36 @@
-{% extends "layout.html" %}
-{% block title %}Home{% endblock %}
-{% block head %}
-{{ super() }}
-{% endblock %}
-{% block content %}
-<h1>Home Page</h1>
-{% endblock %}
-
-
-      <!--<input type='file' id='read_file' />-->
-<!--<div id="container">-->
-<!--    <img src="something.jpg" alt="" />-->
-<!--</div>-->
-
-<!--<script type="text/javascript">-->
-<!--(function() {-->
-
-<!--var img = document.getElementById('container').firstChild;-->
-<!--img.onload = function() {-->
-<!--    if(img.height > img.width) {-->
-<!--        img.height = '100%';-->
-<!--        img.width = 'auto';-->
-<!--    }-->
-<!--};-->
-
-<!--}());-->
-<!--</script>-->
+<html>
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="static/css/main.css" />
+    <style>
+        #search {
+        width: 10em;  height: 3em;
+        }
+        input{font-size: 18px;}
+        #innerbox{
+        margin-left: 200px;
+        margin-top: 20px;
+        width:250px; /* or whatever width you want. */
+        max-width:250px; /* or whatever width you want. */
+        display: inline-block;
+        background: silver;
+        padding: 200px;
+        }
+    </style>
+</head>
+<body>
+<div style="margin-left:200px; margin-top:80px"><h1>Face Recognition Module</h1></div>
+<div style="margin-left:450px; margin-top:20px"><h3>Upload Image for Recognition</h3></div>
+<div style="margin-left:450px; margin-top:20px">
+<!--    <input type="file" id="myFile" name="filename">-->
+     <input type="file" onchange="document.getElementById('abc').src = window.URL.createObjectURL(this.files[0])">
+<!--    <input type="submit" value="Submit" id="search">-->
+    </form>
+</div>
+<img src="" id="abc" style="margin-left: 450px; margin-top: 20px;height:420px; width:420px"></img>
+<br>
+<input type="submit" value="Run Model on Image" style="margin-left: 570px; margin-top: 20px" id="search">
+<div style="margin-left:550px; margin-top:20px; color: green"><h3>Face Recognition Result</h3></div>
+<div style="margin-left:450px; margin-top:20px"><h4>Image Recognized as: </h4></div>
+</body>
+</html>
