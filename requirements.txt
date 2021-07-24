@@ -5,6 +5,5 @@ itsdangerous==1.1.0
 Werkzeug>=1.0.1
 requests==2.21.0
 requests-oauthlib==1.0.0
-arcface == 0.0.8
-faiss == 1.5.3
-pillow == 8.3.1
+face_recognition
+opencv-python-headless
