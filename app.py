@@ -15,7 +15,8 @@ def home():
             print(type(unknown_image))
             label = FR_Services.face_recognize(unknown_image)
             # print(label)
-    return render_template('index.html', label=label)
+            return render_template('index.html', label=label)
+    return render_template('index.html')
 
 # @app.route('/face_recognition/')
 # def recog():
