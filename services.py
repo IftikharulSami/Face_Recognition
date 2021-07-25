@@ -56,8 +56,8 @@ class FR_Services ():
         test_enc = fr.face_encodings(test_image, locations)
         test_image = cv2.cvtColor(test_image, cv2.COLOR_RGB2BGR)
         for face_encoding, face_locations in zip(test_enc, locations):
-            results = fr.compare_faces(train_faces, face_encoding, 0.7)
-            match = None
+            results = fr.compare_faces(train_faces, face_encoding, 0.6)
+            match = 'Unknown Person'
             if True in results:
                 match = train_names[results.index(True)]
                 # print(match)
