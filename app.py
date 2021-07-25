@@ -10,12 +10,12 @@ app = Flask(__name__)
 @app.route('/', methods=['GET', 'POST'])
 def home():
     if request.method == 'POST':
-        if request.files:
-            unknown_image = request.files['unknown_image']
-            print(type(unknown_image))
-            label = FR_Services.face_recognize(unknown_image)
+        # if request.files:
+            # unknown_image = request.files['unknown_image']
+            # print(type(unknown_image))
+        label = FR_Services.face_recognize('images/Test/iftikhar.jpg')
             # print(label)
-            return render_template('index.html', label=label)
+        return render_template('index.html', label=label)
     return render_template('index.html')
 
 # @app.route('/face_recognition/')
