@@ -3,7 +3,18 @@
     <meta charset="utf-8">
 <!--    <link rel="stylesheet" href="static/css/main.css" />-->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-
+    <script>
+<!--        const submitBtnClassify = document.getElementById('new_image');-->
+<!--        const submitBtnRetrain = document.getElementById('search2');-->
+<!--        const inputFileClassify = document.getElementById('unknown-image');-->
+<!--        const inputFileRetrain = document.getElementById('new-image');-->
+<!--        const txtLabel = document.getElementById('new_label');-->
+<!--        if (inputFileClassify.files.length === 0) {-->
+<!--            submitBtnClassify.disabled = true;-->
+<!--            submitBtnRetrain.disabled = true;-->
+<!--            submitBtnClassify.disabled = true;-->
+<!--            }-->
+    </script>
     <style>
         #search {
         width: 11em;  height: 3em;
@@ -24,7 +35,7 @@
     </style>
 </head>
 <body>
-<div class="container" style="margin-top: 20px">
+<div class="container" style="margin-top: 20px"*>
     <form action="{{url_for('home')}}" method="POST" enctype="multipart/form-data">
     <div class="col-lg-6 col-md-6  col-sm-12" style="background-color: #f0f0f0">
     <div style="margin-left:60px; margin-top:80px; color: green"><h1>Face Recognition Module</h1></div>
@@ -39,25 +50,25 @@
     <br>
     <input type="submit" value="Run Model on Image" style="margin-left:170px; margin-top: 30px" id="search">
     <div style="margin-left:110px; margin-top:30px; color: green"><h3>---Face Recognition Result---</h3></div>
-    <div style="margin-left:70px; margin-top:20px"><h4>Person Recognized as: {{ label }}</h4></div>
+    <div style="margin-left:70px; margin-top:20px"><h4>Person Recognized as: {{label}}</h4></div>
     <br><br><br>
     </div>
-    </form>
     <div class="col-lg-6 col-md-6  col-sm-12" style="background-color: #f0f0f0">
       <div style="margin-left:60px; margin-top:80px; color: blue"><h1>Model Retraining Module</h1></div>
       <div style="margin-left:20px; margin-top:20px"><h3>Upload Image for Model Retraining</h3></div>
     <div style="margin-left:20px; margin-top:20px">
-     <input type="file" onchange="document.getElementById('xyz').src = window.URL.createObjectURL(this.files[0])" style="margin-left:45px">
+     <input type="file" name="new_image" onchange="document.getElementById('new_image').src = window.URL.createObjectURL(this.files[0])" style="margin-left:45px">
     </div>
-    <img src="" id="xyz" style="margin-left: 60px; margin-top: 20px;height:420px; width:420px"></img>
+    <img src="" id="new_image" style="margin-left: 60px; margin-top: 20px;height:420px; width:420px"></img>
     <br>
     <label style="margin-left:65; margin-top: 20"><h4>Person Name</h4></label>
-    <input type="text" style="margin-left:60; margin-top: 0">
+    <input name="new_label" type="text" style="margin-left:60; margin-top: 0">
     <input type="submit" value="Start Model Retraining" style="margin-left:170px; margin-top: 20px" id="search2">
-    <div style="margin-left:100px; margin-top:20px; color: green"><h3>Status: </h3></div>
+    <div style="margin-left:100px; margin-top:20px; color: green"><h3>Status: {{reply}}</h3></div>
     <div style="margin-left:70px; margin-top:15px; color: brown"><h4>Run Face Recognition Module for new face recognition</h4></div>
     <br>
     </div>
+    </form>
 </div>
 
 </body>
