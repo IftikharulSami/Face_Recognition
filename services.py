@@ -42,7 +42,7 @@ class FR_Services ():
             os.remove(f)
         train_faces = []
         train_names = []
-        Train_images = r'/home/ncbc-iftikhar/Facial-Recognition/images/Train'
+        Train_images = r'images/Train'
         for name in os.listdir(Train_images):
             for filename in os.listdir(f'{Train_images}/{name}'):
                 image = fr.load_image_file(f'{Train_images}/{name}/{filename}')
@@ -50,8 +50,8 @@ class FR_Services ():
                 encoding = fr.face_encodings(image, locations)[0]
                 train_faces.append(encoding)
                 train_names.append(name)
-        np.save(r'/home/ncbc-iftikhar/Facial-Recognition/encoding/encoding.npy', train_faces)
-        np.save(r'/home/ncbc-iftikhar/Facial-Recognition/encoding/labels.npy', train_names)
+        np.save(r'encoding/encoding.npy', train_faces)
+        np.save(r'encoding/labels.npy', train_names)
         train_names.clear()
         train_names.clear()
         return 'Model Retraining Complete!'
@@ -67,7 +67,7 @@ class FR_Services ():
         # np.save(r'encoding/encodings.npy', face_encoding)
     def retrain(image, label):
         img = fr.load_image_file(image)
-        parent_dir = '/home/ncbc-iftikhar/Facial-Recognition/images/Train'
+        parent_dir = 'images/Train'
         directory = label
         path = os.path.join(parent_dir, directory)
         if os.path.isdir(path):
@@ -85,7 +85,6 @@ class FR_Services ():
 
 
     def face_recognize(test_image):
-#         os.chdir('/home/ncbc-iftikhar/Facial-Recognition/')
         train_faces = np.load(r'encoding/encoding.npy')
         train_names = np.load(r'encoding/labels.npy')
         tst_image = fr.load_image_file(test_image)
