@@ -93,7 +93,7 @@ class FR_Services ():
         for face_encoding, face_locations in zip(test_enc, locations):
             match_idx = -1
             label = 'UnKnown Person'
-            match = face_distance(train_faces, face_encoding)
+            match = fr.face_distance(train_faces, face_encoding)
             match_idx = np.argmin(match)
             if match_idx != -1:
                 label = train_names[match_idx]
