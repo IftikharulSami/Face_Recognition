@@ -95,7 +95,7 @@ class FR_Services ():
             label = 'UnKnown Person'
             match = fr.face_distance(train_faces, face_encoding)
             match_idx = np.argmin(match)
-            if match_idx != -1 and match < 0.7:
+            if match_idx != -1 and match[match_idx] < 0.7:
                 label = train_names[match_idx]
 #            results = fr.compare_faces(train_faces, face_encoding, 0.55)
  #           match = 'Unknown Person'
