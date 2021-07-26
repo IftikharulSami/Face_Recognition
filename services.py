@@ -37,6 +37,7 @@ class FR_Services ():
         return FR_Services.detect_face_locations(img)
     def update_enc_labels():
         d = r'encoding'
+        print(d)
         filesToRemove = [os.path.join(d, f) for f in os.listdir(d)]
         for f in filesToRemove:
             os.remove(f)
