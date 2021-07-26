@@ -85,13 +85,14 @@ class FR_Services ():
 
 
     def face_recognize(test_image):
-        os.chdir('/home/ncbc-iftikhar/Facial-Recognition/')
+#         os.chdir('/home/ncbc-iftikhar/Facial-Recognition/')
         train_faces = np.load(r'encoding/encoding.npy')
         train_names = np.load(r'encoding/labels.npy')
         tst_image = fr.load_image_file(test_image)
-        locations = fr.face_locations(tst_image, model='cnn')
-        test_enc = fr.face_encodings(tst_image, locations)
-        test_image = cv2.cvtColor(tst_image, cv2.COLOR_RGB2BGR)
+        tst_image = cv2.cvtColor(tst_image, cv2.COLOR_RGB2BGR)
+        resize_image = cv2.resize(test_image, (112,112), interpolation = cv2.INTER_AREA)
+        locations = fr.face_locations(resize_image, model='cnn')
+        test_enc = fr.face_encodings(resize_image, locations)
         for face_encoding, face_locations in zip(test_enc, locations):
             results = fr.compare_faces(train_faces, face_encoding, 0.55)
             match = 'Unknown Person'
