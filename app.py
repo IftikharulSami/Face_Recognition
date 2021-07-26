@@ -19,8 +19,8 @@ def home():
                 new_image = request.files['new_image']
                 value = request.form['new_label']
                 value = value.title()
-                reply = FR_Services.retrain(new_image, value)
-                return render_template('index.html', reply=reply)
+              #  reply = FR_Services.retrain(new_image, value)
+                return render_template('index.html', reply='Currently Not Available')
     return render_template('index.html')
 
 # @app.route('/face_recognition/')
