@@ -91,10 +91,16 @@ class FR_Services ():
         locations = fr.face_locations(resize_image, model='cnn')
         test_enc = fr.face_encodings(resize_image, locations)
         for face_encoding, face_locations in zip(test_enc, locations):
-            results = fr.compare_faces(train_faces, face_encoding, 0.55)
-            match = 'Unknown Person'
-            if True in results:
-                match = train_names[results.index(True)]
+            match_idx = -1
+            label = 'UnKnown Person'
+            match = face_distance(train_faces, face_encoding)
+            match_idx = np.argmin(match)
+            if match_idx != -1:
+                label = train_names[match_idx]
+#            results = fr.compare_faces(train_faces, face_encoding, 0.55)
+ #           match = 'Unknown Person'
+ #           if True in results:
+ #               match = train_names[results.index(True)]
                 # print(match)
-            return match
+            return label
 
