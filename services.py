@@ -87,7 +87,7 @@ class FR_Services ():
         train_names = np.load(r'encoding/labels.npy')
         tst_image = fr.load_image_file(test_image)
         tst_image = cv2.cvtColor(tst_image, cv2.COLOR_RGB2BGR)
-        resize_image = cv2.resize(tst_image, (220, 220), interpolation = cv2.INTER_AREA)
+        resize_image = cv2.resize(tst_image, (320, 280), interpolation = cv2.INTER_AREA)
         locations = fr.face_locations(resize_image, model='cnn')
         test_enc = fr.face_encodings(resize_image, locations, 3)
         for face_encoding, face_locations in zip(test_enc, locations):
