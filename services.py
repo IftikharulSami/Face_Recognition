@@ -55,8 +55,9 @@ class FR_Services ():
 #         train_names.clear()
         new_enc = []
         frame = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
-        resize_image = cv2.resize(frame, (360, 420), interpolation = cv2.INTER_AREA)
-        locations = fr.face_locations(resize_image, model='cnn')
+#         resize_image = cv2.resize(frame, (360, 420), interpolation = cv2.INTER_AREA)
+        locations = fr.face_locations(frame, model='cnn')
+        img1 = frame[locations[0][0]:locations[0][2], locations[0][3]:locations[0][1]]
         encoding = fr.face_encodings(resize_image, locations, num_jitters=10)[0]
         new_enc.append(encoding)
         new_enc = np.array(new_enc)
