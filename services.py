@@ -55,8 +55,9 @@ class FR_Services ():
 #         train_names.clear()
         new_enc = []
         frame = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
-        locations = fr.face_locations(frame, model='cnn')
-        encoding = fr.face_encodings(frame, locations, num_jitters=10)[0]
+        resize_image = cv2.resize(tst_image, (320, 380), interpolation = cv2.INTER_AREA)
+        locations = fr.face_locations(resize_image, model='cnn')
+        encoding = fr.face_encodings(resize_image, locations, num_jitters=10)[0]
         new_enc.append(encoding)
         new_enc = np.array(new_enc)
         new_name = [label]
