@@ -89,7 +89,7 @@ class FR_Services ():
 #             os.chdir(path)
 #             x = label.strip()
 #             cv2.imwrite(f'{x[0]}+1.jpg', img)
-        status = FR_Services.update_enc_labels(img, label)
+        status = self.update_enc_labels(img, label)
         return status
 
 
