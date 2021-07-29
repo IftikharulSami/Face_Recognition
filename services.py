@@ -6,8 +6,8 @@ import os
 
 class FR_Services ():
     def __init__(self):
-        self.train_faces = np.load(r'/home/ncbc-iftikhar/Facial-Recognition/encoding/encoding.npy')
-        self.train_names = np.load(r'/home/ncbc-iftikhar/Facial-Recognition/encoding/labels.npy')
+        self.train_faces = np.load(r'encoding/encoding.npy')
+        self.train_names = np.load(r'encoding/labels.npy')
     def gen_labels_from_images(self):
         pass
     def get_image_from_camera(address=0):
