@@ -20,7 +20,7 @@ def home():
                 new_image = request.files['new_image']
                 value = request.form['new_label']
                 value = value.title()
-               reply = ser.retrain(new_image, value)
+                reply = ser.retrain(new_image, value)
                 return render_template('index.html', reply=reply)
     return render_template('index.html')
 
