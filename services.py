@@ -58,7 +58,7 @@ class FR_Services ():
 #         resize_image = cv2.resize(frame, (360, 420), interpolation = cv2.INTER_AREA)
         locations = fr.face_locations(frame, model='cnn')
         img1 = frame[locations[0][0]:locations[0][2], locations[0][3]:locations[0][1]]
-        encoding = fr.face_encodings(resize_image, locations, num_jitters=10)[0]
+        encoding = fr.face_encodings(img1, locations, num_jitters=10)[0]
         new_enc.append(encoding)
         new_enc = np.array(new_enc)
         new_name = [label]
