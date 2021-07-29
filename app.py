@@ -7,19 +7,20 @@ from services import FR_Services
 app = Flask(__name__)
 # cap = cv2.VideoCapture(0)
 # app.config["IMAGE_UPLOADS"] = "Train"
+ser = FR_Services()
 @app.route('/', methods=['GET', 'POST'])
 def home():
     if request.method == 'POST':
         if request.files:
             if (request.files['unknown_image'] and not request.files['new_image']):
                 unknown_image = request.files['unknown_image']
-                label, dist = FR_Services.face_recognize(unknown_image)
+                label, dist = ser.face_recognize(unknown_image)
                 return render_template('index.html', label=label, dist=dist)
             elif (not request.files['unknown_image'] and request.files['new_image']):
                 new_image = request.files['new_image']
                 value = request.form['new_label']
                 value = value.title()
-              #  reply = FR_Services.retrain(new_image, value)
+              #  reply = ser.retrain(new_image, value)
                 return render_template('index.html', reply='Currently Not Available')
     return render_template('index.html')
 
