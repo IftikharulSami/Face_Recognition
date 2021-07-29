@@ -6,7 +6,8 @@ import os
 
 class FR_Services ():
     def __init__(self):
-        pass
+        self.train_faces = np.load(r'/home/ncbc-iftikhar/Facial-Recognition/encoding/encoding.npy')
+        self.train_names = np.load(r'/home/ncbc-iftikhar/Facial-Recognition/encoding/labels.npy')
     def gen_labels_from_images(self):
         pass
     def get_image_from_camera(address=0):
@@ -35,23 +36,33 @@ class FR_Services ():
     def read_image(image):
         img = fr.load_image_file(image)
         return FR_Services.detect_face_locations(img)
-    def update_enc_labels():
-        os.remove(r'encoding/encoding.npy')
-        os.remove(r'encoding/labels.npy')
-        train_faces = []
-        train_names = []
-        Train_images = r'images/Train'
-        for name in os.listdir(Train_images):
-            for filename in os.listdir(f'{Train_images}/{name}'):
-                image = fr.load_image_file(f'{Train_images}/{name}/{filename}')
-                locations = fr.face_locations(image, model='cnn')  # cnn
-                encoding = fr.face_encodings(image, locations)[0]
-                train_faces.append(encoding)
-                train_names.append(name)
-        np.save(r'encoding/encoding.npy', train_faces)
-        np.save(r'encoding/labels.npy', train_names)
-        train_names.clear()
-        train_names.clear()
+    def update_enc_labels(self, image, label):
+#         os.remove(r'encoding/encoding.npy')
+#         os.remove(r'encoding/labels.npy')
+#         train_faces = []
+#         train_names = []
+#         Train_images = r'images/Train'
+#         for name in os.listdir(Train_images):
+#             for filename in os.listdir(f'{Train_images}/{name}'):
+#                 image = fr.load_image_file(f'{Train_images}/{name}/{filename}')
+#                 locations = fr.face_locations(image, model='cnn')  # cnn
+#                 encoding = fr.face_encodings(image, locations)[0]
+#                 train_faces.append(encoding)
+#                 train_names.append(name)
+#         np.save(r'encoding/encoding.npy', train_faces)
+#         np.save(r'encoding/labels.npy', train_names)
+#         train_names.clear()
+#         train_names.clear()
+        new_enc = []
+        frame = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+        locations = fr.face_locations(frame, model='cnn')
+        encoding = fr.face_encodings(frame, locations, num_jitters=10)[0]
+        new_enc.append(encoding)
+        new_enc = np.array(new_enc)
+        new_name = [label]
+        new_name = np.array(new_name)
+        self.train_faces = np.concatenate((self.train_faces, new_enc), axis=0)
+        self.train_names = np.concatenate((self.train_names, new_name), axis=0)
         return 'Model Retraining Complete!'
 
     def detect_face_locations(image):
@@ -63,28 +74,28 @@ class FR_Services ():
         return face_enc
         # face_encoding = np.array(face_enc)
         # np.save(r'encoding/encodings.npy', face_encoding)
-    def retrain(image, label):
+    def retrain(self, image, label):
         img = fr.load_image_file(image)
-        parent_dir = 'images/Train'
-        directory = label
-        path = os.path.join(parent_dir, directory)
-        if os.path.isdir(path):
-            count = sum(os.path.isfile(os.path.join(path, f)) for f in os.listdir(path))
-            os.chdir(path)
-            x = label.strip()
-            cv2.imwrite(f'{x[0]}{count+1}.jpg', img)
-        else:
-            os.makedirs(path)
-            os.chdir(path)
-            x = label.strip()
-            cv2.imwrite(f'{x[0]}+1.jpg', img)
-        status = FR_Services.update_enc_labels()
+#         parent_dir = 'images/Train'
+#         directory = label
+#         path = os.path.join(parent_dir, directory)
+#         if os.path.isdir(path):
+#             count = sum(os.path.isfile(os.path.join(path, f)) for f in os.listdir(path))
+#             os.chdir(path)
+#             x = label.strip()
+#             cv2.imwrite(f'{x[0]}{count+1}.jpg', img)
+#         else:
+#             os.makedirs(path)
+#             os.chdir(path)
+#             x = label.strip()
+#             cv2.imwrite(f'{x[0]}+1.jpg', img)
+        status = FR_Services.update_enc_labels(img, label)
         return status
 
 
-    def face_recognize(test_image):
-        train_faces = np.load(r'encoding/encoding.npy')
-        train_names = np.load(r'encoding/labels.npy')
+    def face_recognize(self, test_image):
+        encod = self.train_faces
+        nam = self.train_names
         tst_image = fr.load_image_file(test_image)
         tst_image = cv2.cvtColor(tst_image, cv2.COLOR_RGB2BGR)
         resize_image = cv2.resize(tst_image, (280, 320), interpolation = cv2.INTER_AREA)
@@ -93,10 +104,10 @@ class FR_Services ():
         for face_encoding, face_locations in zip(test_enc, locations):
             match_idx = -1
             label = 'UnKnown Person'
-            match = fr.face_distance(train_faces, face_encoding)
+            match = fr.face_distance(encod, face_encoding)
             match_idx = np.argmin(match)
             if match_idx != -1 and match[match_idx] <= 0.525:
-                label = train_names[match_idx]
+                label = nam[match_idx]
 #            results = fr.compare_faces(train_faces, face_encoding, 0.55)
  #           match = 'Unknown Person'
  #           if True in results:
