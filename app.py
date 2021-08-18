@@ -12,10 +12,11 @@ ser = FR_Services()
 def home():
     if request.method == 'POST':
         if request.files:
-            if (request.files['unknown_image']: # and not request.files['new_image']):
-                unknown_image = request.files['unknown_image']
-                label, dist = ser.face_recognize(unknown_image)
-                return render_template('index.html', label=label, dist=dist)
+            
+#             if (request.files['unknown_image']: # and not request.files['new_image']):
+            unknown_image = request.files['unknown_image']
+            label, dist = ser.face_recognize(unknown_image)
+            return render_template('index.html', label=label, dist=dist)
 #             elif (not request.files['unknown_image'] and request.files['new_image']):
 #                 new_image = request.files['new_image']
 #                 value = request.form['new_label']
