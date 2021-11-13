@@ -38,7 +38,7 @@ def welcome():
         elif request.form['submit']=='Image from Live Stream':
             return render_template('RecFromCamera.html')
         elif request.form['submit']=='Add Image from Gallery':
-            return render_template('welcome.html')
+            return render_template('AddImageFromFile.html')
         elif request.form['submit']=='Add Image from Live Stream':
             return render_template('welcome.html')
 
