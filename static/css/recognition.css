@@ -1,0 +1,60 @@
+html, body{
+    height: 100%;
+    width: 100%;
+    background: #EBF5FB;
+    overflow-y: hidden;
+    overflow-x: hidden;
+}
+.container{
+    margin-top: 10px;
+    width: 40%;
+    height: 70%;
+    border: 3px dashed blue;
+    margin: auto;
+}
+.title{
+    color: #FF5A00;
+    font-size: 28px;
+    font-weight: bold;
+    text-align: center;
+    width: 100%;
+    height: 40px;
+    margin-top: 20px;
+}
+.inside{
+    margin-top: 15px;
+    width: 80%;
+    height: 725px;
+    margin-left: 16%;
+}
+.sub-title{
+    width: 80%;
+    height: 15px;
+    color: green;
+    text-align: center;
+    margin-left: 3%;
+    font-size: 20px;
+}
+.file-choose{
+    width: 80%;
+    height: 15px;
+    margin-left: 20%;
+    margin-top: 25px;
+}
+.inpt{
+    font-size: 20px;
+}
+.image{
+    margin-left: 15%;
+    margin-top: 25px;
+    height:500px;
+    width:400px;
+    border: 2px solid black;
+}
+.run{
+    margin-left:25%;
+    margin-top: 15px;
+    font-size: 20px;
+    width: 250px;
+    height: 40px;
+}

@@ -1,0 +1,88 @@
+html, body{
+    height: 100%;
+    width: 100%;
+    background: #EBF5FB;
+    overflow-y: hidden;
+    overflow-x: hidden;
+}
+.container{
+    margin-top: 10px;
+    width: 80%;
+    height: 75%;
+    border: 2px dashed green;
+    margin: auto;
+    display: flex;
+}
+.title{
+    color: #FF5A00;
+    font-size: 28px;
+    font-weight: bold;
+    text-align: center;
+    width: 100%;
+    height: 40px;
+    margin-top: 20px;
+}
+.inside{
+    margin-top: 30px;
+    margin-left: 10%;
+    width: 40%;
+    height: 50%;
+    float: left;
+}
+#inside2{
+    margin-top: 30px;
+    width: 650px;
+    height: 460px;
+    margin-left: 115%;
+    border: 2px dotted blue;
+}
+#inside3{
+    margin-top: 15%;
+    width: 600px;
+    height: 120px;
+    margin-left: 60%;
+}
+.sub-title{
+    width: 80%;
+    height: 15px;
+    color: green;
+    text-align: center;
+    margin-left: 3%;
+    font-size: 20px;
+}
+.image{
+    margin-left: 0%;
+    height:460px;
+    width:650px;
+    border: 2px dotted blue;
+    float: left;
+    display: inline-block;
+}
+#video{
+    margin-top: 10px;
+    margin-left: 25px;
+    width: 600px;
+    height: 430px;
+    border: 2px solid blue;
+}
+#unknown_image{
+    margin-top: 10px;
+    margin-left: 10px;
+    width: 620px;
+    height: 430px;
+    border: 2px solid blue;
+}
+#capture-btn{
+    font-size: 20px;
+    margin-top: 30px;
+    margin-left: 40%;
+    height: 40px;
+    width: 100px;
+}
+.run{
+    margin-left:200px;
+    margin-top: 30px;
+    font-size: 20px;
+    width: 250px;
+    height: 40px;
+}
