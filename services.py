@@ -2,6 +2,9 @@ import cv2
 import face_recognition as fr
 import numpy as np
 import os
+import base64
+from PIL import Image
+import io
 
 
 class FR_Services ():
@@ -116,4 +119,12 @@ class FR_Services ():
  #               match = train_names[results.index(True)]
                 # print(match)
             return label, match[match_idx]
+ 
+    def b64toImg(self, enc, name, ext):
+        image = base64.b64decode(enc)
+        filename = f'{name}.{ext}'
+        imgPath = f'temp/{filename}'
+        img = Image.open(io.BytesIO(image))
+        img.save(imgPath, ext)
+        return imgPath
 
