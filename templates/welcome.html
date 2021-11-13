@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>FR Home Page</title>
+    <style>
+    html, body{
+    margin: 0;
+    padding: 0;
+    max-width: 100%;
+    overflow-x: hidden;
+    height: 100%;
+    background: #F2F4F4;
+}
+#title {
+	margin-top: 30px;
+	display: block;
+	font-family: courier, fixed, monospace;
+	color: #FF5A00;
+	font-size 24px;
+}
+#buttons{
+    margin-top: 50px;
+    width: 1450px;
+    height: 60px;
+    margin: auto;
+}
+.button{
+    height: 55px;
+    width: 300px;
+    font-size: 22px;
+}
+
+    </style>
+</head>
+<body>
+<div id="title" align="center"><h1>Benchmark Face Recognition Application</h1></div>
+<div id="buttons">
+<form action="{{url_for('welcome')}}" method="POST" enctype="multipart/form-data" name="savedimage">
+    <input class="button" type="submit" value="Image From Gallery" name="submit">
+    <input class="button" type="submit" value="Image from Live Stream" name="submit">
+    <input class="button" type="submit" value="Add Image from Gallery" name="submit">
+    <input class="button" type="submit" value="Add Image from Live Stream" name="submit">
+</form>
+    </div>
+</body>
+</html>

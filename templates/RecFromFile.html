@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>FR from File</title>
+    <link href="static/css/recognition.css" rel="stylesheet">
+</head>
+<body>
+<div  id="home" style="font-size:20px; color: blue;margin-left: 40px; margin-top:30px"><a href="{{url_for('dashboard')}}">FR Home</a></div>
+<div class="title">Face Recognition from Saved Image</div>
+<div class="container">
+    <form action="{{url_for('recognize')}}" method="POST" enctype="multipart/form-data">
+    <div class="inside">
+    <div class="sub-title"><h3>Upload Image from Gallery for Recognition</h3></div>
+    <div class="file-choose">
+    <input class="inpt" type="file" name="unknown_image" onchange="document.getElementById('unknown_image').src = window.URL.createObjectURL(this.files[0])" style="margin-left:45px">
+    </div>
+    <div class="image">
+    <img src="" id="unknown_image" name="test_image" style="width: 400px; height: 430px;"></img>
+    </div>
+    <input type="submit" value="Run Model on Image" class="run">
+    <div style="margin-left:120px; margin-top:25px; color: green"><h2>---------Face Recognition Result---------</h2></div>
+    <div style="margin-left:130px; margin-top:15px"><h3>Person Recognized as: <label style="color: green; font-size: 20px;">{{label}}</label> </h3></div>
+        <div style="margin-left:130px; margin-top:15px"><h3>Distance: <label style="color: green; font-size: 20px;">{{dist}}</label></h3></div>
+    <br>
+    </div>
+    </form>
+</div>
+</body>
+</html>
