@@ -77,6 +77,15 @@ def recognizefromcamera():
         # print('Elapsed Time: ', end_time - st_time)
         return jsonify({'label': label, 'dist': dist})
     return render_template('RecFromCamera.html')
+@app.route('/retrainfromfile', methods=['GET', 'POST'])
+def retrainfromfile():
+    if request.method == 'POST':
+        if request.files:
+            new_image = request.files['unknown_image']
+            label = request.form['label']
+            status = ser.retrain(new_image, label)
+            return render_template('AddImageFromFile.html', label=label, status=status)
+    return render_template('AddImageFromFile.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
