@@ -9,8 +9,8 @@ import io
 
 class FR_Services ():
     def __init__(self):
-        self.train_faces = np.load(r'encoding/encoding.npy')
-        self.train_names = np.load(r'encoding/labels.npy')
+        self.train_faces = np.load(r'encoding/train_emb1.npy')
+        self.train_names = np.load(r'encoding/train_names1.npy')
     def gen_labels_from_images(self):
         pass
     def get_image_from_camera(address=0):
