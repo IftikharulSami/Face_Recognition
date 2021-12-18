@@ -7,3 +7,4 @@ requests==2.21.0
 requests-oauthlib==1.0.0
 opencv-python-headless
 face_recognition
+faiss-cpu
