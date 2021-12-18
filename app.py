@@ -8,22 +8,10 @@ import numpy as np
 import base64
 import faiss
 
-# from services import FR_Services
-# cap = cv2.VideoCapture(0)
-# app.config["IMAGE_UPLOADS"] = "Train"
-# ser = FR_Services()
-
 app = Flask(__name__)
 
 train_emb = np.load('encodings/encodingnorm.npy')
 train_emb = np.array(train_emb, dtype=np.float32)
-# def l2_normalize(x):
-#     return x / np.sqrt(np.sum(np.multiply(x, x)))
-# norm_emb = l2_normalize(train_emb)
-# normalized = train_emb/l2
-# print(l2)
-# print('Sum', np.sum(l2**2))
-# print(train_emb.shape)
 train_names = np.load('encodings/labelsnorm.npy')
 emb_dim = 128
 index = faiss.IndexFlatL2(emb_dim)
@@ -42,7 +30,7 @@ def face_recognition(face):
     D, I = index.search(tst_emb, 3)
     idx = I[0][0]
     distance = D[0][0]
-    if distance <= 1.242:
+    if distance <= 0.9:
         label = train_names[idx]
         dist = str(distance)
     else:
