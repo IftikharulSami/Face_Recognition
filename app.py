@@ -20,6 +20,10 @@ def face_recognition(face):
     global label
     global dist
     locations = fr.face_locations(face, model='cnn')
+    if len(locations)==0:
+        label = 'No face detected'
+        dist = '-----'
+        return
     test_emb = fr.face_encodings(face, locations, 10)[0]
     norm_enc = test_emb / np.sqrt(np.sum(np.multiply(test_emb, test_emb)))
     tst_emb = np.array(test_emb, dtype=np.float32)
