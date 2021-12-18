@@ -24,7 +24,7 @@ def face_recognition(face):
         label = 'No face detected'
         dist = '-----'
         return
-    test_emb = fr.face_encodings(face, locations, 10)[0]
+    test_emb = fr.face_encodings(face, locations, 5)[0]
     norm_enc = test_emb / np.sqrt(np.sum(np.multiply(test_emb, test_emb)))
     tst_emb = np.array(test_emb, dtype=np.float32)
     tst_emb = np.reshape(tst_emb, (1, emb_dim))
@@ -50,7 +50,7 @@ def dashboard():
 def login():
     error = None
     if request.method == 'POST':
-        if request.form['username'] != 'admin' or request.form['password'] != 'admin':
+        if request.form['username'] != 'admin' or request.form['password'] != 'ncbcbm':
             error = 'Invalid Credentials. Please try again.'
         else:
             return render_template('welcome.html')
