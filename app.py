@@ -1,14 +1,57 @@
 from flask import Flask, render_template, Response, request, url_for, jsonify
+import face_recognition as fr
 # from camera import VideoCamera
 import requests
 import cv2
 import os
+import numpy as np
+import base64
+import faiss
 
-from services import FR_Services
-app = Flask(__name__)
+# from services import FR_Services
 # cap = cv2.VideoCapture(0)
 # app.config["IMAGE_UPLOADS"] = "Train"
-ser = FR_Services()
+# ser = FR_Services()
+
+app = Flask(__name__)
+
+train_emb = np.load('encodings/encodingnorm.npy')
+train_emb = np.array(train_emb, dtype=np.float32)
+# def l2_normalize(x):
+#     return x / np.sqrt(np.sum(np.multiply(x, x)))
+# norm_emb = l2_normalize(train_emb)
+# normalized = train_emb/l2
+# print(l2)
+# print('Sum', np.sum(l2**2))
+# print(train_emb.shape)
+train_names = np.load('encodings/labelsnorm.npy')
+emb_dim = 128
+index = faiss.IndexFlatL2(emb_dim)
+index.add(train_emb)
+label = ''; dist = ''
+
+def face_recognition(face):
+    global label
+    global dist
+    locations = fr.face_locations(face, model='cnn')
+    test_emb = fr.face_encodings(face, locations, 10)[0]
+    norm_enc = test_emb / np.sqrt(np.sum(np.multiply(test_emb, test_emb)))
+    tst_emb = np.array(test_emb, dtype=np.float32)
+    tst_emb = np.reshape(tst_emb, (1, emb_dim))
+    # # print(np.shape(tst_emb))
+    D, I = index.search(tst_emb, 3)
+    idx = I[0][0]
+    distance = D[0][0]
+    if distance <= 1.242:
+        label = train_names[idx]
+        dist = str(distance)
+    else:
+        label = "Unidentified Person"
+
+    label = train_names[idx]
+    # print(f'Person Identified as {label}')
+
+
 
 @app.route('/', methods=['GET', 'POST'])
 def home():
@@ -35,18 +78,20 @@ def welcome():
             return render_template('RecFromFile.html')
         elif request.form['submit']=='Image from Live Stream':
             return render_template('RecFromCamera.html')
-        elif request.form['submit']=='Add Image from Gallery':
-            return render_template('AddImageFromFile.html')
-        elif request.form['submit']=='Add Image from Live Stream':
-            return render_template('welcome.html')
+        # elif request.form['submit']=='Add Image from Gallery':
+        #     return render_template('AddImageFromFile.html')
+        # elif request.form['submit']=='Add Image from Live Stream':
+        #     return render_template('welcome.html')
 
 @app.route('/recognize', methods=['GET', 'POST'])
 def recognize():
     if request.method == 'POST':
         if request.files:
 #             if (request.files['unknown_image']: # and not request.files['new_image']):
-            unknown_image = request.files['unknown_image']
-            label, dist = ser.face_recognize(unknown_image)
+            unknown_image = request.files['unknown_image'].read()
+            npimg = np.fromstring(unknown_image, np.uint8)
+            img = cv2.imdecode(npimg, cv2.IMREAD_COLOR)
+            face_recognition(img)
             return render_template('RecFromFile.html', label=label, dist=dist)
     return render_template('RecFromFile.html')
 
@@ -55,59 +100,16 @@ def recognizefromcamera():
     counter = 1
     if request.method == 'POST':
         imgEnc = request.json['imageBase64']
+        encoded_data = imgEnc.split(',')[1]
+        nparr = np.fromstring(base64.b64decode(encoded_data), np.uint8)
+        img = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
         # imgEnc = request.values['imageBase64']
-        (data, enc) = imgEnc.split(';')
-        (type, ext) = data.split('/')
-        (_, encod) = enc.split(',')
-        name = 'Temp'
-        imgPath = ser.b64toImg(encod, name, ext)
-        print(imgPath)
-        # st_time = timeit.default_timer()
-        label, dist = ser.face_recognize(imgPath)
-        # end_time = timeit.default_timer()
-        print(label)
-        # print('Elapsed Time: ', end_time - st_time)
+        # (data, enc) = imgEnc.split(';')
+        # (type, ext) = data.split('/')
+        # (_, encod) = enc.split(',')
+        face_recognition(img)
         return jsonify({'label': label, 'dist': dist})
     return render_template('RecFromCamera.html')
-
-@app.route('/retrainfromfile', methods=['GET', 'POST'])
-def retrainfromfile():
-    if request.method == 'POST':
-        if request.files:
-#             if (request.files['unknown_image']: # and not request.files['new_image']):
-            new_image = request.files['unknown_image']
-            label = request.form['label']
-            status = ser.retrain(new_image, label)
-            return render_template('AddImageFromFile.html', label=label, status=status)
-#             elif (not request.files['unknown_image'] and request.files['new_image']):
-#                 new_image = request.files['new_image']
-#                 value = request.form['new_label']
-#                 value = value.title()
-#                 reply = ser.retrain(new_image, value)
-#                 return render_template('index.html', reply=reply)
-    return render_template('AddImageFromFile.html')
-
-# @app.route('/face_recognition/')
-# def recog():
-#     return render_template('face_recognition.html')
-#
-# @app.route('/retrain/')
-# def retrain():
-#     return Response(FR_Services.get_image(0), mimetype='multipart/x-mixed-replace; boundary=frame')
-#     # return render_template('retrain.html')
-#
-# def gen(camera):
-#     while True:
-#         data = camera.get_frame()
-#         frame = data[0]
-#         yield (b'--frame\r\n'b'content-type: image/jpeg\r\n\r\n'+frame+b'\r\n')
-#
-    
-# @app.route('/video_feed')
-# def video_feed():
-#     """Video streaming route. Put this in the src attribute of an img tag."""
-#     return Response(gen(VideoCamera()), mimetype='multipart/x-mixed-replace; boundary=frame')
-
 
 if __name__ == '__main__':
     app.run(debug=True)
