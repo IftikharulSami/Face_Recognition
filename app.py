@@ -69,6 +69,8 @@ def recognize():
             unknown_image = request.files['unknown_image'].read()
             npimg = np.fromstring(unknown_image, np.uint8)
             img = cv2.imdecode(npimg, cv2.IMREAD_COLOR)
+            if img.shape[0] >640:
+                img = cv2.resize(img, (640, 480), cv2.INTER_AREA)
             face_recognition(img)
             return render_template('RecFromFile.html', label=label, dist=dist)
     return render_template('RecFromFile.html')
