@@ -1,12 +1,12 @@
 from flask import Flask, render_template, Response, request, url_for, jsonify
 import face_recognition as fr
-# from camera import VideoCamera
 import requests
 import cv2
 import os
 import numpy as np
 import base64
 import faiss
+
 
 app = Flask(__name__)
 
@@ -98,6 +98,7 @@ def recognizefromcamera():
         face_recognition(img)
         return jsonify({'label': label, 'dist': dist})
     return render_template('RecFromCamera.html')
+
 
 if __name__ == '__main__':
     app.run(debug=True)
