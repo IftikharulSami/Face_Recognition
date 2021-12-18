@@ -25,7 +25,6 @@ def face_recognition(face):
     norm_enc = test_emb / np.sqrt(np.sum(np.multiply(test_emb, test_emb)))
     tst_emb = np.array(test_emb, dtype=np.float32)
     tst_emb = np.reshape(tst_emb, (1, emb_dim))
-    # # print(np.shape(tst_emb))
     D, I = index.search(tst_emb, 3)
     idx = I[0][0]
     distance = D[0][0]
@@ -34,11 +33,7 @@ def face_recognition(face):
         dist = str(distance)
     else:
         label = "Unidentified Person"
-
     label = train_names[idx]
-    # print(f'Person Identified as {label}')
-
-
 
 @app.route('/', methods=['GET', 'POST'])
 def home():
@@ -65,10 +60,6 @@ def welcome():
             return render_template('RecFromFile.html')
         elif request.form['submit']=='Image from Live Stream':
             return render_template('RecFromCamera.html')
-        # elif request.form['submit']=='Add Image from Gallery':
-        #     return render_template('AddImageFromFile.html')
-        # elif request.form['submit']=='Add Image from Live Stream':
-        #     return render_template('welcome.html')
 
 @app.route('/recognize', methods=['GET', 'POST'])
 def recognize():
@@ -91,9 +82,6 @@ def recognizefromcamera():
         nparr = np.fromstring(base64.b64decode(encoded_data), np.uint8)
         img = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
         # imgEnc = request.values['imageBase64']
-        # (data, enc) = imgEnc.split(';')
-        # (type, ext) = data.split('/')
-        # (_, encod) = enc.split(',')
         face_recognition(img)
         return jsonify({'label': label, 'dist': dist})
     return render_template('RecFromCamera.html')
