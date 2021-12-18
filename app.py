@@ -10,7 +10,6 @@ import faiss
 
 app = Flask(__name__)
 train_emb = np.load('encoding/encodingnorm.npy')
-train_emb = np.array(train_emb, dtype=np.float32)
 train_names = np.load('encoding/labelsnorm.npy')
 emb_dim = 128
 index = faiss.IndexFlatL2(emb_dim)
