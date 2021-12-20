@@ -1,4 +1,5 @@
 from flask import Flask, render_template, Response, request, url_for, jsonify
+import requests
 import face_recognition as fr
 import cv2
 import os
@@ -9,7 +10,6 @@ import faiss
 app = Flask(__name__)
 os.getcwd()
 train_emb = np.load('encoding/encodingnorm.npy')
-train_emb = np.array(train_emb, dtype=np.float32)
 train_names = np.load('encoding/labelsnorm.npy')
 emb_dim = 128
 index = faiss.IndexFlatL2(emb_dim)
@@ -22,11 +22,11 @@ def face_recognition(face):
     locations = fr.face_locations(face, model='cnn')
     # print(locations)
     if len(locations)==0:
-        print('No Face detected')
+#         print('No Face detected')
         label = 'No face detected'
         dis = '-----'
         return
-    test_emb = fr.face_encodings(face, locations, 10)[0]
+    test_emb = fr.face_encodings(face, locations, 2)[0]
     norm_enc = test_emb / np.sqrt(np.sum(np.multiply(test_emb, test_emb)))
     tst_emb = np.array(test_emb, dtype=np.float32)
     tst_emb = np.reshape(tst_emb, (1, emb_dim))
@@ -34,7 +34,7 @@ def face_recognition(face):
     D, I = index.search(tst_emb, 3)
     idx = I[0][0]
     distance = D[0][0]
-    if distance <= 0.9:
+    if distance <= 1.04:
         label = train_names[idx]
         dist = str(distance)
     else:
@@ -53,7 +53,7 @@ def dashboard():
 def login():
     error = None
     if request.method == 'POST':
-        if request.form['username'] != 'admin' or request.form['password'] != 'admin':
+        if request.form['username'] != 'admin' or request.form['password'] != 'ncbcbm':
             error = 'Invalid Credentials. Please try again.'
         else:
             return render_template('welcome.html')
@@ -66,11 +66,7 @@ def welcome():
             return render_template('RecFromFile.html')
         elif request.form['submit']=='Image from Live Stream':
             return render_template('RecFromCamera.html')
-        # elif request.form['submit']=='Add Image from Gallery':
-        #     return render_template('AddImageFromFile.html')
-        # elif request.form['submit']=='Add Image from Live Stream':
-        #     return render_template('welcome.html')
-
+        
 @app.route('/recognize', methods=['GET', 'POST'])
 def recognize():
     if request.method == 'POST':
