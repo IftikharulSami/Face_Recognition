@@ -21,14 +21,16 @@
     </div>
     <input type="submit" id="upload" value="Run Model on Image" class="run">
     <div style="margin-left:120px; margin-top:25px; color: green"><h2>---------Face Recognition Result---------</h2></div>
-    <div style="margin-left:130px; margin-top:15px"><h3>Person Recognized as: <label style="color: green; font-size: 20px;">{{label}}</label> </h3></div>
-        <div style="margin-left:130px; margin-top:15px"><h3>Distance: <label style="color: green; font-size: 20px;">{{dist}}</label></h3></div>
+    <div style="margin-left:130px; margin-top:15px"><h3>Person Recognized as: <label id="label" style="color: green; font-size: 20px;">{{label}}</label> </h3></div>
+        <div style="margin-left:130px; margin-top:15px"><h3>Distance: <label id="dist" style="color: green; font-size: 20px;">{{dist}}</label></h3></div>
     <br>
     </div>
 <!--    </form>-->
 </div>
 <script>
     $(document).ready(function(){
+<!--        lbl_label = document.createElement('label');-->
+<!--        lbl_label = document.createElement('dist');-->
         canvas = document.createElement('canvas');
         canvas.width = 360;
         canvas.height = 480;
@@ -44,12 +46,12 @@
             contentType: "application/json; charset=utf-8",
             dataType: 'json',
             success: function(response){
-            // Perform operation on the return value
-                $("#dist").text(data['dist']);
-                $("#label").text(data['label']);
+            console.log(response['label']);
+            $("#dist").text(response['dist']);
+            $("#label").text(response['label']);
                 }
             })
-        });
+        })
     });
 </script>
 </body>
