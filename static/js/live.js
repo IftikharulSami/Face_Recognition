@@ -84,8 +84,11 @@ $("#info-submit").click(function(e) {
                         data: JSON.stringify({imageBase64: imgData}),
                         contentType: "application/json; charset=utf-8",
                         dataType: 'json',
-                        }).done(function(data){
+                        success: (function(data){
                         $("#dist").text(data['dist']);
                         $("#label").text(data['label']);
-                        });
+//                        console.log(data['dist']);
+//                        console.log(data['label']);
+                        })
+})
 });
