@@ -77,18 +77,18 @@ var imgData
         window.addEventListener('load', startup, false);
     })();
 
-$("#info-submit").click(function(e) {
-                $.ajax({
-                        url: '/recognizefromcamera',
-                        type: 'post',
-                        data: JSON.stringify({imageBase64: imgData}),
-                        contentType: "application/json; charset=utf-8",
-                        dataType: 'json',
-                        success: (function(data){
-//                         $("#dist").text(data['dist']);
-//                         $("#label").text(data['label']);
-                       console.log(data['dist']);
-                       console.log(data['label']);
-                        })
-})
-});
+// $("#info-submit").click(function(e) {
+//                 $.ajax({
+//                         url: '/recognizefromcamera',
+//                         type: 'post',
+//                         data: JSON.stringify({imageBase64: imgData}),
+//                         contentType: "application/json; charset=utf-8",
+//                         dataType: 'json',
+//                         success: (function(data){
+// //                         $("#dist").text(data['dist']);
+// //                         $("#label").text(data['label']);
+//                        console.log(data['dist']);
+//                        console.log(data['label']);
+//                         })
+// })
+// });
