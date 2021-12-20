@@ -22,9 +22,9 @@ def face_recognition(face):
     locations = fr.face_locations(face, model='cnn')
     # print(locations)
     if len(locations)==0:
-#         print('No Face detected')
+        print('No Face detected')
         label = 'No face detected'
-        dis = '-----'
+        dist = '-----'
         return
     test_emb = fr.face_encodings(face, locations, 2)[0]
     norm_enc = test_emb / np.sqrt(np.sum(np.multiply(test_emb, test_emb)))
@@ -39,6 +39,7 @@ def face_recognition(face):
         dist = str(distance)
     else:
         label = "Unidentified Person"
+        dist = '---------'
     label = train_names[idx]
 
 @app.route('/', methods=['GET', 'POST'])
