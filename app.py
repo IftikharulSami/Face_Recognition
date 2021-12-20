@@ -66,16 +66,12 @@ def welcome():
 
 @app.route('/recognize', methods=['GET', 'POST'])
 def recognize():
-    if request.method == 'POST':
-        if request.files:
-#             if (request.files['unknown_image']: # and not request.files['new_image']):
-            unknown_image = request.files['unknown_image'].read()
-            npimg = np.fromstring(unknown_image, np.uint8)
-            img = cv2.imdecode(npimg, cv2.IMREAD_COLOR)
-            if img.shape[0] >640:
-                img = cv2.resize(img, (640, 480), cv2.INTER_AREA)
-            face_recognition(img)
-            return render_template('RecFromFile.html', label=label, dist=dist)
+    imgstr = request.json['imageBase64']
+    encoded_data = imgstr.split(',')[1]
+    nparr = np.fromstring(base64.b64decode(encoded_data), np.uint8)
+    img = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
+    face_recognition(img)
+    return jsonify({'label' : label, 'dist' : dist})
     return render_template('RecFromFile.html')
 
 @app.route('/recognizefromcamera', methods=['GET', 'POST'])
