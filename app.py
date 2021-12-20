@@ -66,13 +66,14 @@ def welcome():
 
 @app.route('/recognize', methods=['GET', 'POST'])
 def recognize():
-    imgstr = request.json['imageBase64']
-    encoded_data = imgstr.split(',')[1]
-    nparr = np.fromstring(base64.b64decode(encoded_data), np.uint8)
-    img = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
-    face_recognition(img)
-    return jsonify({'label' : label, 'dist' : dist})
-#     return render_template('RecFromFile.html')
+    if request.method == 'POST':
+        imgstr = request.json['imageBase64']
+        encoded_data = imgstr.split(',')[1]
+        nparr = np.fromstring(base64.b64decode(encoded_data), np.uint8)
+        img = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
+        face_recognition(img)
+        return jsonify({'label' : label, 'dist' : dist})
+    return render_template('RecFromFile.html')
 
 @app.route('/recognizefromcamera', methods=['GET', 'POST'])
 def recognizefromcamera():
