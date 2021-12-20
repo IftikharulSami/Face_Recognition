@@ -30,7 +30,32 @@
     </form>
 </section>
 <script src="{{url_for('static', filename='js/live.js')}}"></script>
-</body>
+<script>
+    $(document).ready(function(){
+        canvas = document.createElement('canvas');
+        canvas.width = 640;
+        canvas.height = 480;
+        $("#info-submit").click(function(e) {
+                let image = document.getElementById('unknown_image');
+                canvas.getContext('2d').drawImage(image, 0,0, canvas.width, canvas.height);
+                data = canvas.toDataURL();
+                $.ajax({
+                        url: '/recognizefromcamera',
+                        type: 'post',
+                        data: JSON.stringify({imageBase64: data}),
+                        contentType: "application/json; charset=utf-8",
+                        dataType: 'json',
+                        success: (function(data){
+                        $("#dist").text(data['dist']);
+                        $("#label").text(data['label']);
+<!--                              console.log(data['dist']);-->
+<!--                              console.log(data['label']);-->
+                    })
+                })
+          })
+    });
+</script>
+    </body>
 </html>
 
 <!-- <!DOCTYPE html>
