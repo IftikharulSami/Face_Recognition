@@ -85,10 +85,10 @@ $("#info-submit").click(function(e) {
                         contentType: "application/json; charset=utf-8",
                         dataType: 'json',
                         success: (function(data){
-                        $("#dist").text(data['dist']);
-                        $("#label").text(data['label']);
-//                        console.log(data['dist']);
-//                        console.log(data['label']);
+//                         $("#dist").text(data['dist']);
+//                         $("#label").text(data['label']);
+                       console.log(data['dist']);
+                       console.log(data['label']);
                         })
 })
 });
