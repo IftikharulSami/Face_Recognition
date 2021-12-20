@@ -4,12 +4,13 @@
     <meta charset="UTF-8">
     <title>FR from File</title>
     <link href="static/css/recognition.css" rel="stylesheet">
+    <script type="text/javascript" src="static/js/jquery-2.1.1.js"></script>
 </head>
 <body>
 <div  id="home" style="font-size:20px; color: blue;margin-left: 40px; margin-top:30px"><a href="{{url_for('dashboard')}}">FR Home</a></div>
 <div class="title">Face Recognition from Saved Image</div>
 <div class="container">
-    <form action="{{url_for('recognize')}}" method="POST" enctype="multipart/form-data">
+<!--    <form action="{{url_for('recognize')}}" method="POST" enctype="multipart/form-data">-->
     <div class="inside">
     <div class="sub-title"><h3>Upload Image from Gallery for Recognition</h3></div>
     <div class="file-choose">
@@ -18,13 +19,38 @@
     <div class="image">
     <img src="" id="unknown_image" name="test_image" style="width: 400px; height: 430px;"></img>
     </div>
-    <input type="submit" value="Run Model on Image" class="run">
+    <input type="submit" id="upload" value="Run Model on Image" class="run">
     <div style="margin-left:120px; margin-top:25px; color: green"><h2>---------Face Recognition Result---------</h2></div>
     <div style="margin-left:130px; margin-top:15px"><h3>Person Recognized as: <label style="color: green; font-size: 20px;">{{label}}</label> </h3></div>
         <div style="margin-left:130px; margin-top:15px"><h3>Distance: <label style="color: green; font-size: 20px;">{{dist}}</label></h3></div>
     <br>
     </div>
-    </form>
+<!--    </form>-->
 </div>
+<script>
+    $(document).ready(function(){
+        canvas = document.createElement('canvas');
+        canvas.width = 640;
+        canvas.height = 480;
+        $("#upload").click(function(e) {
+        let image = document.getElementById('unknown_image');
+        var data;
+        canvas.getContext('2d').drawImage(image, 0,0, canvas.width, canvas.height);
+        data = canvas.toDataURL();
+            $.ajax({
+            url: '/recognize',
+            type: 'post',
+            data: JSON.stringify({imageBase64: data}),
+            contentType: "application/json; charset=utf-8",
+            dataType: 'json',
+            success: function(response){
+            // Perform operation on the return value
+                $("#dist").text(data['dist']);
+                $("#label").text(data['label']);
+                }
+            })
+        });
+    });
+</script>
 </body>
 </html>
