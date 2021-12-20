@@ -23,6 +23,41 @@
     </div>
     <div id="inside3">
     <div style="margin-left:30%; margin-top:15px; color: green"><h2>---------Face Recognition Result---------</h2></div>
+        <div style="margin-left:0%; margin-top:0px"><h3>Person Recognized as: <label id="label" style="font-size:20px; color: green"></label></h3></div>
+        <div style="margin-left:0%; margin-top:0px"><h3>Distance: <label id="dist" style="font-size:20px; color: green;"></label></h3></div>
+    </div>
+        <br>
+    </form>
+</section>
+<script src="{{url_for('static', filename='js/live.js')}}"></script>
+</body>
+</html>
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>FR from Camera</title>
+    <link href="static/css/RecFromCamera.css" rel="stylesheet">
+    <script type="text/javascript" src="static/css/jquery-3.6.0.js"></script>
+</head>
+<body>
+<div  id="home" style="font-size:20px; color: blue;margin-left: 40px; margin-top:30px"><a href="{{url_for('dashboard')}}">FR Home</a></div>
+<div class="title">Face Recognition from Camera</div>
+<section class="container">
+    <form action="{{url_for('recognizefromcamera')}}" method="POST" enctype="multipart/form-data">
+    <div class="inside">
+        <div class="image">
+        <video autoplay="true" id="video"></video>
+        <button id="capture-btn" name="capture-btn" value="Capture">Capture</button>
+        </div>
+    </div>
+    <div id="inside2">
+        <img id="unknown_image" name="unknown_image"></img>
+        <input type="button" class="run" name="info-submit" value="Run Image on Model" id="info-submit"/>
+    </div>
+    <div id="inside3">
+    <div style="margin-left:30%; margin-top:15px; color: green"><h2>---------Face Recognition Result---------</h2></div>
          <div style="margin-left:0%; margin-top:0px"><h3>Person Recognized as: <label id="label" style="font-size:20px; color: green"></label></h3></div>
         <div style="margin-left:0%; margin-top:0px"><h3>Distance: <label id="dist" style="font-size:20px; color: green;"></label></h3></div>
         <!--         <div style="margin-left:0%; margin-top:0px"><h3>Person Recognized as: <label id="label" style="font-size:20px; color: green">{{label}}</label></h3></div>
@@ -33,4 +68,4 @@
 </section>
 <script src="{{url_for('static', filename='js/live.js')}}"></script>
 </body>
-</html>
+</html> -->
