@@ -31,7 +31,7 @@ def face_recognition(face):
     D, I = index.search(tst_emb, 3)
     idx = I[0][0]
     distance = D[0][0]
-    if distance <= 0.1.04:
+    if distance <= 1.04:
         label = train_names[idx]
         dist = str(distance)
     else:
