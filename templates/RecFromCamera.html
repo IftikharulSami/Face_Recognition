@@ -33,8 +33,8 @@
 <script>
     $(document).ready(function(){
         canvas = document.createElement('canvas');
-        canvas.width = 640;
-        canvas.height = 480;
+        canvas.width = 480;
+        canvas.height = 360;
         $("#info-submit").click(function(e) {
                 let image = document.getElementById('unknown_image');
                 canvas.getContext('2d').drawImage(image, 0,0, canvas.width, canvas.height);
