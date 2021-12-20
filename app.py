@@ -72,7 +72,7 @@ def recognize():
     img = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
     face_recognition(img)
     return jsonify({'label' : label, 'dist' : dist})
-    return render_template('RecFromFile.html')
+#     return render_template('RecFromFile.html')
 
 @app.route('/recognizefromcamera', methods=['GET', 'POST'])
 def recognizefromcamera():
