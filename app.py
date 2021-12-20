@@ -24,14 +24,14 @@ def face_recognition(face):
         label = 'No face detected'
         dist = '-----'
         return
-    test_emb = fr.face_encodings(face, locations, 5)[0]
+    test_emb = fr.face_encodings(face, locations, 2)[0]
     norm_enc = test_emb / np.sqrt(np.sum(np.multiply(test_emb, test_emb)))
     tst_emb = np.array(test_emb, dtype=np.float32)
     tst_emb = np.reshape(tst_emb, (1, emb_dim))
     D, I = index.search(tst_emb, 3)
     idx = I[0][0]
     distance = D[0][0]
-    if distance <= 0.9:
+    if distance <= 0.1.04:
         label = train_names[idx]
         dist = str(distance)
     else:
@@ -77,7 +77,6 @@ def recognize():
 
 @app.route('/recognizefromcamera', methods=['GET', 'POST'])
 def recognizefromcamera():
-    counter = 1
     if request.method == 'POST':
         imgEnc = request.json['imageBase64']
         encoded_data = imgEnc.split(',')[1]
