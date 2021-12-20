@@ -10,7 +10,7 @@
 <div  id="home" style="font-size:20px; color: blue;margin-left: 40px; margin-top:30px"><a href="{{url_for('dashboard')}}">FR Home</a></div>
 <div class="title">Face Recognition from Camera</div>
 <section class="container">
-<!--     <form action="{{url_for('recognizefromcamera')}}" method="POST" enctype="multipart/form-data"> -->
+    <form action="{{url_for('recognizefromcamera')}}" method="POST" enctype="multipart/form-data">
     <div class="inside">
         <div class="image">
         <video autoplay="true" id="video"></video>
@@ -27,7 +27,7 @@
         <div style="margin-left:0%; margin-top:0px"><h3>Distance: <label id="dist" style="font-size:20px; color: green;"></label></h3></div>
     </div>
         <br>
-<!--     </form> -->
+    </form>
 </section>
 <script src="{{url_for('static', filename='js/live.js')}}"></script>
 </body>
